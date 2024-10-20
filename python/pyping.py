@@ -34,6 +34,7 @@ def ping(addr):
         end = time.time()
         roundTripTime = end - start
         print(f"Elapsed: {roundTripTime}s")
+        print(recvData.hex())
         
     except socket.error as e:
         raise
