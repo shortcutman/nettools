@@ -1,0 +1,11 @@
+[package]
+name = "rust"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "ping"
+path = "src/ping.rs"
+
+[dependencies]
+socket2 = { version = "0.5.7", features = ["all"] }
