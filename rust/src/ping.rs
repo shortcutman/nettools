@@ -1,6 +1,6 @@
 
 // use std::os::unix::net::SocketAddr;
-use std::net::{SocketAddr};
+use std::net::{SocketAddr, ToSocketAddrs};
 use std::mem::{MaybeUninit};
 use socket2::{Socket, Domain, Type, Protocol, SockAddr};
 
@@ -62,7 +62,7 @@ fn ping(addr: &String) {
     fullbytes.extend(vec![1, 1, 1, 1, 1, 1, 1, 1]);
 
     let socket = Socket::new(Domain::IPV4, Type::RAW, Some(Protocol::ICMPV4)).unwrap();
-    let address: SocketAddr = "142.250.70.132:0".parse().unwrap();
+    let address = "www.google.com:0".to_socket_addrs().unwrap().next().unwrap();
     let connectResult = socket.connect(&SockAddr::from(address)).unwrap();
     let sendResult = socket.send(&fullbytes);
 
