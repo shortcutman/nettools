@@ -32,8 +32,6 @@ fn calculate_internet_checksum(bytes: &Vec<u8>) -> u16 {
     let mut sum: u32 = 0;
 
     for bit in bytes.chunks(2) {
-        println!("2 bytes: {:?}", bit);
-
         sum += ((bit[0] as u32) << 8) + (bit[1] as u32);
     }
 
@@ -50,9 +48,11 @@ fn ping(addr: &String) {
         rest_of_header: 0
     };
 
+    let packet_data = vec![1, 1, 1, 1, 1, 1, 1, 1];
+
     let mut bytes_before_checksum: Vec<u8> = Vec::new();
     bytes_before_checksum.extend(&header.as_bytes());
-    bytes_before_checksum.extend(vec![1, 1, 1, 1, 1, 1, 1, 1]);
+    bytes_before_checksum.extend(&packet_data);
     println!("ICMP Packet: {:?}", bytes_before_checksum);
 
     let cs = calculate_internet_checksum(&bytes_before_checksum);
@@ -61,7 +61,7 @@ fn ping(addr: &String) {
 
     let mut fullbytes: Vec<u8> = Vec::new();
     fullbytes.extend(&header.as_bytes());
-    fullbytes.extend(vec![1, 1, 1, 1, 1, 1, 1, 1]);
+    fullbytes.extend(&packet_data);
 
     let socket = Socket::new(Domain::IPV4, Type::RAW, Some(Protocol::ICMPV4)).unwrap();
     let address = addr.to_socket_addrs().unwrap().next().unwrap();
