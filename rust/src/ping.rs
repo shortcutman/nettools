@@ -1,7 +1,5 @@
 
-// use std::os::unix::net::SocketAddr;
-use std::net::{SocketAddr, ToSocketAddrs};
-use std::mem::{MaybeUninit};
+use std::net::ToSocketAddrs;
 use socket2::{Socket, Domain, Type, Protocol, SockAddr};
 
 fn main() {
