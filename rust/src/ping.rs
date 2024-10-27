@@ -65,8 +65,8 @@ fn ping(addr: &String) {
 
     let socket = Socket::new(Domain::IPV4, Type::RAW, Some(Protocol::ICMPV4)).unwrap();
     let address = addr.to_socket_addrs().unwrap().next().unwrap();
-    let connectResult = socket.connect(&SockAddr::from(address)).unwrap();
-    let sendResult = socket.send(&fullbytes);
+    socket.connect(&SockAddr::from(address)).unwrap();
+    socket.send(&fullbytes).unwrap();
 
     let mut buf = Vec::with_capacity(4096);
     let received = socket.recv(buf.spare_capacity_mut());
