@@ -13,6 +13,9 @@ struct ICMPHeader {
     icmp_type: u8,
     code: u8,
     checksum: u16,
+
+    // part of the ICMP header even if unused here
+    #[allow(dead_code)]
     rest_of_header: u32
 }
 
@@ -22,6 +25,8 @@ impl ICMPHeader {
         bytes.push(self.icmp_type);
         bytes.push(self.code);
         bytes.extend_from_slice(&self.checksum.to_be_bytes());
+        bytes.extend_from_slice(&self.rest_of_header.to_be_bytes());
+        assert_eq!(bytes.len(), 8);
         bytes
     }
 }
