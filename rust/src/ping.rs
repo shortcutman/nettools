@@ -74,6 +74,6 @@ fn ping(addr: &String) {
         buf.set_len(received.unwrap());
     }
 
-    println!("{:02x?}", buf);
+    println!("Response packet: {:02x?}", buf);
 
 }
