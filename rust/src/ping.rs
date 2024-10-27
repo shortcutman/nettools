@@ -5,8 +5,7 @@ use std::mem::{MaybeUninit};
 use socket2::{Socket, Domain, Type, Protocol, SockAddr};
 
 fn main() {
-    println!("Hello, world!");
-    ping(&String::from("www.google.com"));
+    ping(&String::from("www.google.com:0"));
 }
 
 struct ICMPHeader {
@@ -67,7 +66,7 @@ fn ping(addr: &String) {
     fullbytes.extend(vec![1, 1, 1, 1, 1, 1, 1, 1]);
 
     let socket = Socket::new(Domain::IPV4, Type::RAW, Some(Protocol::ICMPV4)).unwrap();
-    let address = "www.google.com:0".to_socket_addrs().unwrap().next().unwrap();
+    let address = addr.to_socket_addrs().unwrap().next().unwrap();
     let connectResult = socket.connect(&SockAddr::from(address)).unwrap();
     let sendResult = socket.send(&fullbytes);
 
