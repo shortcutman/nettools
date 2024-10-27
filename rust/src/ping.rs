@@ -1,9 +1,14 @@
 
 use std::net::ToSocketAddrs;
+use std::time::Instant;
 use socket2::{Socket, Domain, Type, Protocol, SockAddr};
 
 fn main() {
+    let now = Instant::now();
     ping(&String::from("www.google.com:0"));
+
+    let elapsed = now.elapsed();
+    println!("Elapsed: {:?}", elapsed);
 }
 
 struct ICMPHeader {
